@@ -1,8 +1,8 @@
 <?php 
-// Include the header
-include 'includes/header.php'; 
+// Include header
+include 'includes/header.php';
 
-// 1. Load configuration and PHPMailer classes
+// Load configuration and PHPMailer
 require_once 'config.php';
 require 'vendor/phpmailer/Exception.php';
 require 'vendor/phpmailer/PHPMailer.php';
@@ -13,23 +13,23 @@ use PHPMailer\PHPMailer\Exception;
 
 $message_status = "";
 
-// 2. Handle the Form Submission
+// Handle Form Submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer(true);
 
     try {
-      // SMTP Settings
+        // SMTP Settings
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = MAIL_HOST;
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'ashutoshdafedar33@gmail.com'; // Your Gmail
-        $mail->Password   = 'gakscjulsnrmpblh';   // The 16-character App Password
+        $mail->Username   = MAIL_USERNAME;
+        $mail->Password   = MAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = MAIL_PORT;
 
         // Email Configuration
-     $mail->setFrom('ashutoshdafedar33@gmail.com', 'Krishnna FinServe');
-        $mail->addAddress('ashutoshdafedar33@gmail.com');  
+        $mail->setFrom(MAIL_FROM_EMAIL, MAIL_FROM_NAME);
+        $mail->addAddress(MAIL_FROM_EMAIL);  
 
         $mail->isHTML(true);
         $mail->Subject = "New Knowledge Center Inquiry: " . $_POST['name'];
@@ -46,48 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
-function fetchYahooFinance($symbol) {
-    // Public Yahoo Finance endpoint used by many scrapers
-    $url = "https://query1.finance.yahoo.com/v8/finance/chart/" . urlencode($symbol) . "?range=2d&interval=1d";
-    
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Required by Yahoo
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    $data = json_decode($response, true);
-    
-    if (isset($data['chart']['result'][0])) {
-        $result = $data['chart']['result'][0];
-        $indicators = $result['indicators']['quote'][0]['close'];
-        
-        $curr = end($indicators);
-        $prev = $indicators[0];
-        
-        $diff = $curr - $prev;
-        $pct = ($diff / $prev) * 100;
-
-        return [
-            "price" => number_format($curr, 2),
-            "pct" => sprintf("%+1.2f%%", $pct),
-            "class" => ($diff >= 0) ? "up" : "down"
-        ];
-    }
-    return null;
-}
-
-// Ticker dictionary matching your Flask app
-$tickers_dict = [
-    "NIFTY 50" => "^NSEI",
-    "SENSEX" => "^BSESN",
-    "NIFTY BANK" => "^NSEBANK",
-    "GOLD" => "GC=F",
-    "USD/INR" => "INR=X"
-];
-
+// Fetch market indices
 $market_indices = [];
 foreach ($tickers_dict as $name => $symbol) {
     $data = fetchYahooFinance($symbol);
@@ -95,15 +54,8 @@ foreach ($tickers_dict as $name => $symbol) {
         $market_indices[] = array_merge(["name" => $name], $data);
     }
 }
-
-
-
-
-
-
-
-
 ?>
+
 
     <br><br><br><br>
     <header class="know-hero">

@@ -6,4 +6,3 @@ config.php
 Thumbs.db
 .DS_Store
 *.sql
-static/

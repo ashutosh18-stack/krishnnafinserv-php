@@ -1,5 +1,5 @@
 <?php
-// Load PHPMailer classes
+
 require 'vendor/phpmailer/Exception.php';
 require 'vendor/phpmailer/PHPMailer.php';
 require 'vendor/phpmailer/SMTP.php';
@@ -14,29 +14,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer(true);
 
     try {
-        // SMTP Settings
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        $mail->Host       = MAIL_HOST;
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'ashutoshdafedar33@gmail.com'; // Your Gmail
-        $mail->Password   = 'gakscjulsnrmpblh';   // The 16-character App Password
+        $mail->Username   = MAIL_USERNAME;
+        $mail->Password   = MAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = MAIL_PORT;
 
-        // Email Configuration
-        $mail->setFrom('ashutoshdafedar33@gmail.com', 'Krishnna FinServe');
-        $mail->addAddress('ashutoshdafedar33@gmail.com'); 
+        $mail->setFrom(MAIL_FROM_EMAIL, MAIL_FROM_NAME);
+        $mail->addAddress(MAIL_TO);
 
         $mail->isHTML(true);
         $mail->Subject = "New Website Inquiry from " . $_POST['name'];
-        $mail->Body    = "<h3>New Contact Request</h3>
-                          <p><b>Name:</b> {$_POST['name']}</p>
-                          <p><b>Email:</b> {$_POST['email']}</p>
-                          <p><b>Phone:</b> {$_POST['phone']}</p>
-                          <p><b>Message:</b> {$_POST['message']}</p>";
+        $mail->Body    = "
+            <h3>New Contact Request</h3>
+            <p><b>Name:</b> {$_POST['name']}</p>
+            <p><b>Email:</b> {$_POST['email']}</p>
+            <p><b>Phone:</b> {$_POST['phone']}</p>
+            <p><b>Message:</b> {$_POST['message']}</p>
+        ";
 
         $mail->send();
         $message_status = "success";
+
     } catch (Exception $e) {
         $message_status = "error";
     }
@@ -45,19 +46,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 // 2. Fetching Reviews from Google Sheets
-$csv_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vStJCMnT6zfkpZySTv7MTdeFPPCuewskycI7zngrElj8CyEo62mNPnqaZ2C77aEiXhZZ4BObpMYVm7H/pub?gid=17466993&single=true&output=csv";
+$csv_url = REVIEWS_CSV;
 $reviews = [];
 
 if (($handle = fopen($csv_url, "r")) !== FALSE) {
-    $header = fgetcsv($handle); 
+    $header = fgetcsv($handle);
     while (($data = fgetcsv($handle)) !== FALSE) {
         $row = array_combine($header, $data);
-        
-        // Safety check for the 'Status' column
+
         $status = isset($row['Status']) ? strtolower(trim($row['Status'])) : '';
-        
         if ($status == 'live') {
-            // MAP THE LONG CSV HEADERS TO KEYS USED IN THE JAVASCRIPT BELOW
             $reviews[] = [
                 'Full Name' => $row['Full Name'] ?? 'Valued Client',
                 'How would you rate the quality of the product/service?' => $row['How would you rate the quality of the product/service?'] ?? 5,
@@ -66,11 +64,11 @@ if (($handle = fopen($csv_url, "r")) !== FALSE) {
         }
     }
     fclose($handle);
-    $reviews = array_reverse($reviews); 
+    $reviews = array_reverse($reviews);
 }
 
-// Convert PHP reviews array to JSON for the JavaScript bridge
 $reviews_json = json_encode($reviews);
+
 ?>
 
 <?php include 'includes/header.php'; ?>

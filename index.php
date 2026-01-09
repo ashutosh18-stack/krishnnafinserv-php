@@ -1,77 +1,8 @@
-<?php 
-require_once 'config.php'; // Load your credentials
-
-// Logic: In Flask, you fetched market data here. 
-// For now, we will leave an empty array, or you can use a Finance API later.
-$market_indices = []; 
+<?php
+// Include header and config
+include 'includes/header.php';
+include 'config.php'; // This will load $market_indices
 ?>
-
-<?php foreach($market_indices as $index): ?>
-    <div class="card <?php echo $index['class']; ?>">
-        <p><?php echo $index['name']; ?>: <?php echo $index['price']; ?></p>
-    </div>
-<?php endforeach; ?>
-
-
-<?php 
-function fetchYahooFinance($symbol) {
-    // Public Yahoo Finance endpoint used by many scrapers
-    $url = "https://query1.finance.yahoo.com/v8/finance/chart/" . urlencode($symbol) . "?range=2d&interval=1d";
-    
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Required by Yahoo
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    $data = json_decode($response, true);
-    
-    if (isset($data['chart']['result'][0])) {
-        $result = $data['chart']['result'][0];
-        $indicators = $result['indicators']['quote'][0]['close'];
-        
-        $curr = end($indicators);
-        $prev = $indicators[0];
-        
-        $diff = $curr - $prev;
-        $pct = ($diff / $prev) * 100;
-
-        return [
-            "price" => number_format($curr, 2),
-            "pct" => sprintf("%+1.2f%%", $pct),
-            "class" => ($diff >= 0) ? "up" : "down"
-        ];
-    }
-    return null;
-}
-
-// Ticker dictionary matching your Flask app
-$tickers_dict = [
-  "NIFTY 50"    => "^NSEI",
-    "SENSEX"      => "^BSESN",
-    "NIFTY BANK"  => "^NSEBANK",
-    "NIFTY IT"    => "^CNXIT",
-    "GOLD"        => "GC=F",
-    "SILVER"      => "SI=F",
-    "USD/INR"     => "INR=X",
-    "CRUDE OIL"   => "CL=F",
-    "S&P 500"     => "^GSPC",
-    "NASDAQ"      => "^IXIC"
-];
-
-$market_indices = [];
-foreach ($tickers_dict as $name => $symbol) {
-    $data = fetchYahooFinance($symbol);
-    if ($data) {
-        $market_indices[] = array_merge(["name" => $name], $data);
-    }
-}
-
-
- ?>
-
-
 <?php include 'includes/header.php'; ?>
 
 <section class="hero-section">
@@ -163,6 +94,7 @@ foreach ($tickers_dict as $name => $symbol) {
         </h2>
     </div>
 
+<!-- Ticker Section -->
 <div class="ticker-wrap">
     <div class="ticker">
         <?php if (!empty($market_indices)): ?>
@@ -180,6 +112,7 @@ foreach ($tickers_dict as $name => $symbol) {
         <?php endif; ?>
     </div>
 </div>
+
 
     <section class="logo-slider-section">
         <div class="slider-container">
