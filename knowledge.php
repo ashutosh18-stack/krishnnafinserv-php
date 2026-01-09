@@ -561,7 +561,7 @@ foreach ($tickers_dict as $name => $symbol) {
     <section class="edu-scroll-lock">
         <div style="margin-bottom: -70px;">
             <h1 class="serv-section-title">Market <span class="serv-cyan-text">Education</span></h1>
-            <p class="serve-lead" style="margin-top: -45px; text-align: center;">Your investments are structured as per your risk appetite and time horizon.</p> 
+            <p class="serve-lead" style="margin-top: -45px; text-align: center;">Learn smart investing, grow your wealth wisely.</p> 
         </div>
        
         <div class="scroll-animation-zone">
@@ -572,7 +572,17 @@ foreach ($tickers_dict as $name => $symbol) {
                     </div>
                     <div class="layer-right">
                         <h3>The Heritage of Indian Capital</h3>
-                        <p>Established in 1875, BSE (formerly Bombay Stock Exchange) is Asia's first stock exchange...</p>
+                        <p>The BSE (formerly known as the Bombay Stock Exchange Ltd.) is Asia's oldest stock exchange and a cornerstone of the Indian financial market, headquartered in Mumbai. It provides a transparent and efficient platform for trading various financial instruments and is regulated by the Securities and Exchange Board of India (SEBI). 
+Key Information
+Founded: Established on July 9, 1875, it was the first stock exchange in India to be recognized by the government under the Securities Contracts Regulation Act in 1956. <br>
+Location: Its headquarters are on Dalal Street in Mumbai, India, a location often compared to Wall Street in the US.<br>
+Function: The BSE facilitates the raising of capital for companies by offering a platform for new listings (IPOs) and allows investors to buy and sell existing securities like equities, debt instruments, mutual funds, and derivatives.<br>
+Technology: It transitioned from an open outcry system to an electronic trading platform called the BSE On-Line Trading (BOLT) system in 1995, enhancing efficiency and transparency.<br>
+Regulation: All operations of the BSE are overseen and regulated by the Securities and Exchange Board of India (SEBI), which ensures fair trading practices and investor protection. <br>
+The S&P BSE SENSEX:
+The SENSEX (a portmanteau of Sensitive and Index) is the BSE's flagship and most widely tracked benchmark index. <br>
+Composition: It comprises 30 of the largest, most actively traded, and financially sound companies across various sectors of the Indian economy.<br>
+Role: The SENSEX is considered a barometer of India's economic health and overall market sentiment. Its movements provide analysts and investors with a snapshot of the market's performance.</p>
                     </div>
                 </div>
             </div>
@@ -584,7 +594,23 @@ foreach ($tickers_dict as $name => $symbol) {
                     </div>
                     <div class="layer-right">
                         <h3>The Hub of Digital Trading</h3>
-                        <p>The National Stock Exchange (NSE) is the world's largest derivatives exchange...</p>
+                        <p>The National Stock Exchange of India (NSE) is the leading financial exchange in India, headquartered in Mumbai. It is the world's largest derivatives exchange by the number of contracts traded and the fifth-largest stock exchange globally by market capitalization. 
+Key Information<br>
+Establishment: Incorporated in 1992, the NSE began operations in 1994, pioneering fully automated, screen-based electronic trading in India.
+<br>Function: It provides a transparent and efficient nationwide platform for investors to trade various financial instruments.
+Regulation & Ownership: The NSE is a private corporation owned by a consortium of major Indian financial institutions (such as LIC and SBI) and is regulated by the Securities and Exchange Board of India (SEBI).
+<br> Technology: It utilizes a robust, high-speed electronic limit order book system (known as NEAT) that ensures anonymity for buyers and sellers and prioritizes orders based on price and time. 
+Products and Segments
+The NSE offers trading across a wide range of asset classes: 
+Equity Market: Includes stocks, mutual funds, IPOs, ETFs, and a dedicated platform for Small and Medium Enterprises (SMEs) called NSE EMERGE.
+Derivatives Market: Offers futures and options contracts on indices (like the Nifty 50), single stocks, currency, interest rates, and commodities.
+<br>Debt Market: Provides a liquid and transparent platform for trading government securities (G-Secs) and corporate bonds. 
+Key Indices
+The flagship index of the NSE is the Nifty 50, which is a benchmark index comprising 50 actively traded stocks across various sectors of the Indian economy. Other major indices include: 
+<br>Nifty Bank<br>
+Nifty Next 50<br>
+Nifty Midcap 50<br>
+Nifty Smallcap 250</p>
                     </div>
                 </div>
             </div>
@@ -596,7 +622,19 @@ foreach ($tickers_dict as $name => $symbol) {
                     </div>
                     <div class="layer-right">
                         <h3>Protecting Your Investments</h3>
-                        <p>SEBI is the statutory regulator that ensures the Indian securities market is transparent...</p>
+                        <p>The Securities and Exchange Board of India (SEBI) is the statutory regulatory body for the securities and commodity markets in India. Its primary purpose is to protect the interests of investors and to promote and regulate the development of the Indian securities market. 
+Key Information about SEBI <br>
+Establishment: SEBI was initially established as a non-statutory body on April 12, 1988, and granted statutory powers through the SEBI Act, 1992, on January 30, 1992.
+<br>Headquarters: Its headquarters are located in the Bandra Kurla Complex, Mumbai, and it has regional offices in New Delhi, Kolkata, Chennai, and Ahmedabad.
+<br>Structure: SEBI is managed by a nine-member board, which includes a Chairman nominated by the Union Government of India, two members from the Union Finance Ministry, one from the Reserve Bank of India (RBI), and five other members nominated by the government (at least three of whom must be whole-time members). The current chairperson is Tuhin Kanta Pandey. 
+Core Objectives & Functions
+SEBI performs quasi-legislative, quasi-executive, and quasi-judicial functions to ensure market integrity. 
+<br>Protective Functions: Safeguarding investors from malpractices, prohibiting insider trading, checking price rigging, and promoting investor education.
+<br>Regulatory Functions: Establishing rules and a code of conduct for financial intermediaries, regulating the process of company takeovers, and auditing stock exchanges.
+<br>Developmental Functions: Promoting electronic trading (e.g., T+2 settlement cycles), training intermediaries, and conducting research for an efficient market. 
+Investor Assistance
+<br>SEBI provides various services for investors: 
+Online Portal: The SEBI Investor website offers tools, calculators, and educational resources to help individuals make informed financial decisions.</p>
                     </div>
                 </div>
             </div>

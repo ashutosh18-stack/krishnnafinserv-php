@@ -3173,7 +3173,7 @@
 
 
         .edu-scroll-lock {
-            height: 600vh;
+            height: 300vh;
             /* Increased height for the 3rd card double-scroll buffer */
             position: relative;
             background: var(--bg-light);
@@ -3182,7 +3182,7 @@
         .scroll-animation-zone {
             position: sticky;
             top: 0;
-            height: 100vh;
+            height: 105vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -3194,7 +3194,7 @@
             width: 95%;
             /* Wider for more impact */
             max-width: 1250px;
-            height: 500px;
+            height: 550px;
             background: #fff;
             border-radius: 40px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
@@ -3229,14 +3229,14 @@
         }
 
         .layer-left {
-            flex: 1;
+            flex: -5;
             /* Increased width for image zone */
             background: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 50px;
+            padding: 30px;
             border-right: 1px solid #eee;
         }
 
@@ -3248,7 +3248,7 @@
         }
 
         .layer-right {
-            flex: 1.5;
+            flex: 2.5;
             padding: 60px;
             display: flex;
             flex-direction: column;
