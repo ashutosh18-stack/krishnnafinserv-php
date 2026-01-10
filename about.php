@@ -1,3 +1,6 @@
+<?php
+ob_start("ob_gzhandler");
+?>
 <?php include 'includes/header.php'; ?>
 
     <section class="statement-section">
@@ -147,3 +150,6 @@
     </section>
 
 <?php include 'includes/footer.php'; ?>
+<?php
+ob_end_flush(); // Send the buffered output to the browser
+?>

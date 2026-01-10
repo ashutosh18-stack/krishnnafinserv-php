@@ -1,5 +1,5 @@
 <?php
-
+ob_start("ob_gzhandler");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,3 +148,6 @@
 
 </body>
 </html>
+<?php
+ob_end_flush(); // Send the buffered output to the browser
+?>

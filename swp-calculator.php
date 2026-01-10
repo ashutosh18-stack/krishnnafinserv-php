@@ -1,3 +1,6 @@
+<?php
+ob_start("ob_gzhandler");
+?>
 <?php include 'includes/header.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -141,3 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <?php include 'includes/footer.php'; ?>
+<?php
+ob_end_flush(); // Send the buffered output to the browser
+?>

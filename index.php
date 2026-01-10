@@ -1,4 +1,7 @@
 <?php
+ob_start("ob_gzhandler");
+?>
+<?php
 // Include header and config
 include 'includes/header.php';
 include 'config.php'; // This will load $market_indices
@@ -94,24 +97,36 @@ include 'config.php'; // This will load $market_indices
         </h2>
     </div>
 
-<!-- Ticker Section -->
+
 <div class="ticker-wrap">
-    <div class="ticker">
-        <?php if (!empty($market_indices)): ?>
-            <?php foreach ($market_indices as $item): ?>
-                <div class="ticker__item">
-                    <span class="ticker__name"><?php echo htmlspecialchars($item['name']); ?></span>
-                    <span class="ticker__price"><?php echo htmlspecialchars($item['price']); ?></span>
-                    <span class="ticker__pct <?php echo htmlspecialchars($item['class']); ?>">
-                        <?php echo htmlspecialchars($item['pct']); ?>
-                    </span>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="ticker__item text-muted">Market data loading...</div>
-        <?php endif; ?>
+    <div class="ticker" id="market-ticker" style="color:white;">
+        Loading market data...
     </div>
 </div>
+
+<script>
+// Fetch market data asynchronously
+fetch('fetch_tickers.php')
+    .then(res => res.json())
+    .then(data => {
+        const tickerContainer = document.getElementById('market-ticker');
+        tickerContainer.innerHTML = '';
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('ticker__item');
+            div.innerHTML = `
+                <span class="ticker__name">${item.name}</span>
+                <span class="ticker__price">${item.price}</span>
+                <span class="ticker__pct ${item.class}">${item.pct}</span>
+            `;
+            tickerContainer.appendChild(div);
+        });
+    })
+    .catch(err => {
+        console.error('Error fetching tickers:', err);
+        document.getElementById('market-ticker').innerHTML = 'Market data unavailable';
+    });
+</script>
 
 
     <section class="logo-slider-section">
@@ -137,3 +152,6 @@ include 'config.php'; // This will load $market_indices
     </section>
 
 <?php include 'includes/footer.php'; ?>
+<?php
+ob_end_flush(); // Send the buffered output to the browser
+?>

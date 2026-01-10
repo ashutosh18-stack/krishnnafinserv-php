@@ -1,3 +1,6 @@
+<?php
+ob_start(); // Start output buffering
+?>
 <?php 
 // Include header
 include 'includes/header.php';
@@ -43,15 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message_status = "success";
     } catch (Exception $e) {
         $message_status = "error";
-    }
-}
-
-// Fetch market indices
-$market_indices = [];
-foreach ($tickers_dict as $name => $symbol) {
-    $data = fetchYahooFinance($symbol);
-    if ($data) {
-        $market_indices[] = array_merge(["name" => $name], $data);
     }
 }
 ?>
@@ -538,23 +532,37 @@ foreach ($tickers_dict as $name => $symbol) {
         </section>
     </div>
 
-    <div class="ticker-wrap">
-    <div class="ticker">
-        <?php if (!empty($market_indices)): ?>
-            <?php foreach ($market_indices as $item): ?>
-                <div class="ticker__item">
-                    <span class="ticker__name"><?php echo htmlspecialchars($item['name']); ?></span>
-                    <span class="ticker__price"><?php echo htmlspecialchars($item['price']); ?></span>
-                    <span class="ticker__pct <?php echo htmlspecialchars($item['class']); ?>">
-                        <?php echo htmlspecialchars($item['pct']); ?>
-                    </span>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="ticker__item text-muted">Market data loading...</div>
-        <?php endif; ?>
+    
+<div class="ticker-wrap">
+    <div class="ticker" id="market-ticker">
+        Loading market data...
     </div>
 </div>
+
+
+<script>
+// Fetch market data asynchronously
+fetch('fetch_tickers.php')
+    .then(res => res.json())
+    .then(data => {
+        const tickerContainer = document.getElementById('market-ticker');
+        tickerContainer.innerHTML = '';
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('ticker__item');
+            div.innerHTML = `
+                <span class="ticker__name">${item.name}</span>
+                <span class="ticker__price">${item.price}</span>
+                <span class="ticker__pct ${item.class}">${item.pct}</span>
+            `;
+            tickerContainer.appendChild(div);
+        });
+    })
+    .catch(err => {
+        console.error('Error fetching tickers:', err);
+        document.getElementById('market-ticker').innerHTML = 'Market data unavailable';
+    });
+</script>
 
     <br><br>
 
@@ -674,4 +682,7 @@ Online Portal: The SEBI Investor website offers tools, calculators, and educatio
 <?php 
 // Include the footer
 include 'includes/footer.php'; 
+?>
+<?php
+ob_end_flush(); // Send the buffered output to the browser
 ?>

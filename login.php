@@ -1,4 +1,6 @@
-
+<?php
+ob_start("ob_gzhandler");
+?>
 <style>
     *{
         margin: 0;
@@ -338,3 +340,6 @@ $("#togglePassword").on("click", function () {
 });
 </script>
 
+<?php
+ob_end_flush(); // Send the buffered output to the browser
+?>

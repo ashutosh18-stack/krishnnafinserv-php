@@ -1,3 +1,6 @@
+<?php
+ob_start("ob_gzhandler");
+?>
 <?php include 'includes/header.php'; ?>
 <style>
     :root {
@@ -257,3 +260,6 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
 </script>
 
 <?php include 'includes/footer.php'; ?>
+<?php
+ob_end_flush(); // Send the buffered output to the browser
+?>
